@@ -1,1 +1,11 @@
 theme: jekyll-theme-midnight
+author: skyper
+description: An autonomous SSH worm
+github:
+  repository_url: https://github.com/hackerschoice/ssh-it
+show_downloads: false
+twitter_username: hackerschoice
+github_username:  hackerschoice
+social-network-links:
+  github: hackerschoice
+  twitter: hackerschoice
