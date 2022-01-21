@@ -227,7 +227,7 @@ OK_OUT
 echo -en 2>&1 "Unpacking binaries...................................................."
 # Unpack (suppress "tar: warning: skipping header 'x'" on alpine linux
 (cd "${MY_TMPDIR}" && tar xfz "${PKG_TGZ}" 2>/dev/null) || { FAIL_OUT "unpacking failed"; errexit; }
-[[ ! -f "${MY_TMPDIR}/hook.sh" ]] && { FAIL_OUT "unpacking failed"; errexit; }
+[[ ! -f "${MY_TMPDIR}/${PKG_NAME}/hook.sh" ]] && { FAIL_OUT "unpacking failed"; errexit; }
 OK_OUT
 
 export THC_DEBUG
