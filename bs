@@ -315,11 +315,11 @@ DX="│   │   │   │   │   │   │   │   │   │   "
 		n_esc=0 # Extra ANSI codes not displayed but counted by printf(3)
 		_bs_msg_try_last="${2}"
 		len="${#_bs_msg_try_last}"
-		_bs_msg_try_last="${2/root@/${CW}root${CN}@}"
+		_bs_msg_try_last="${2/root@/${CG}root${CN}@}"
 		[[ "${len}" -ne "${#_bs_msg_try_last}" ]] && n_esc=11
 
 		len="${#_bs_msg_try_last}"
-		_bs_msg_try_last="${_bs_msg_try_last/-l root /-l ${CW}root${CN} }"
+		_bs_msg_try_last="${_bs_msg_try_last/-l root /-l ${CG}root${CN} }"
 		[[ "${len}" -ne "${#_bs_msg_try_last}" ]] && n_esc=$((n_esc + 11))
 
 		l="$((l + n_esc))"
@@ -513,6 +513,8 @@ done
 ############################
 if [[ -n $BS_HISTFILE ]]; then
 	hfile="${BS_HISTFILE}" && [[ -f "${hfile}" ]] && SSH_CMDS+="$(cat "${hfile}" | eval $BASH_HST_SSH)"
+elif [[ -n $BS_ZSH_HISTFILE ]]; then
+	hfile="${BS_ZSH_HISTFILE}" && [[ -f "${hfile}" ]] && SSH_CMDS+="$(cat "${hfile}" | eval $ZSH_HST_SSH)"
 else	
 	hfile="${HOME}/.zsh_history" && [[ -f "${hfile}" ]] && SSH_CMDS+="$(cat "${hfile}" | eval $ZSH_HST_SSH)"
 	hfile="${HOME}/.bash_history" && [[ -f "${hfile}" ]] && SSH_CMDS+="$(cat "${hfile}" | eval $BASH_HST_SSH)"
