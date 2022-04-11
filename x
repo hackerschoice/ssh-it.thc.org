@@ -32,7 +32,7 @@ CC="\033[1;36m" # cyan
 CM="\033[1;35m" # magenta
 CN="\033[0m"    # none
 
-_DEFAULT_THC_DEPTH=6
+_DEFAULT_THC_DEPTH=2
 
 if [[ -z $THC_DEBUG ]]; then
 	DEBUGF(){ :;}
